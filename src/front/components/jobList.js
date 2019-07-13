@@ -3,21 +3,25 @@ import axios from 'axios';
 import {filter, orderBy} from 'lodash';
 import queryString from 'query-string';
 import Fuse from 'fuse.js';
+import {withStore} from '../store'
 
-export default class JobList extends React.Component {
-  state = {
-    jobListings: []
-  };
+class JobList extends React.Component {
+
+  constructor(props) {
+    super(props);
+    this.props.store.set('jobListings', []);
+    this.props.store.set('jobPages', 0);
+  }
 
   componentDidMount(){
     axios.get('https://careers.chugach.com/jobs')
       .then(res => {
-        let jobListings = res.data;
-        let {company, keyword, sortBy, order}  = queryString.parse(location.search);
+        let allJobListings = res.data;
+        let {company, keyword, sortBy, order, pageNumber} = queryString.parse(location.search);
 
         // Filter res by company
         if(company) {
-          jobListings = filter(jobListings, {companyFilter: company});
+          allJobListings = filter(allJobListings, {companyFilter: company});
         }
 
         // Filter res by search term
@@ -37,8 +41,8 @@ export default class JobList extends React.Component {
             ]
           };
           // Fuse results
-          let fuse = new Fuse(jobListings, options);
-          jobListings = fuse.search(keyword);
+          let fuse = new Fuse(allJobListings, options);
+          allJobListings = fuse.search(keyword);
         }
 
         //Order results
@@ -53,30 +57,46 @@ export default class JobList extends React.Component {
         } else if (sortBy === 'nativeDate' && order === 'asc') {
           order = 'desc'
         }
-        jobListings = orderBy(jobListings, sortBy, order)
-        console.log(jobListings[0]);
-        this.setState({jobListings: jobListings})
+        allJobListings = orderBy(allJobListings, sortBy, order)
+
+        let jobListingsPaged = [];
+
+        while (allJobListings.length) {
+          jobListingsPaged.push(allJobListings.splice(0, 16))
+        }
+
+        this.props.store.set('jobListings', jobListingsPaged);
+        this.props.store.set('jobPages', jobListingsPaged.length);
       });
   }
 
   render() {
-    // TODO: Check job sources for UID to scrape. If none can be found or can't be reasonably certain that there won't be duplicates use UUID generator in scrape tool
-    return(
-      <ul>
-        {this.state.jobListings.map(
-          job => (
-            <li key={job.uuid}>
-              <a href={job.url} target="_blank">
-                <h3>{job.title}</h3>
-                <span className="company">{job.company}</span>
-                <span className="location">{job.location}</span>
-                <span className="date">{job.date}</span>
-                <span className="closingDate">{job.closingDate}</span>
-              </a>
-            </li>
-          )
-        )}
-      </ul>
-    )
+    if(this.props.store.jobListings[0]) {
+      return(
+        <ul>
+          {this.props.store.jobListings[this.props.store.currentPage].map(
+            job => (
+              <li key={job.uuid}>
+                <a href={job.url} target="_blank">
+                  <h3>{job.title}</h3>
+                  <span className="company">{job.company}</span>
+                  <span className="location">{job.location}</span>
+                  <span className="date">{job.date}</span>
+                  <span className="closingDate">{job.closingDate}</span>
+                </a>
+              </li>
+            )
+          )}
+        </ul>
+      )
+    } else {
+      return(
+        <div>
+          LOADING
+        </div>
+      )
+    }
   }
 }
+
+export default withStore(JobList)

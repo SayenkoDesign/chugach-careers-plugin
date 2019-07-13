@@ -5,9 +5,9 @@
  */
 import React from 'react';
 import { render } from 'react-dom';
-import Careers from './components/careers';
+import App from './App';
 
 render(
-  <Careers />,
+  <App />,
   document.getElementById('careers-root')
 );
