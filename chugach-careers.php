@@ -33,8 +33,16 @@ add_action( 'wp_enqueue_scripts', 'frontend_scripts');
 function chugach_careers_root() {
 	ob_start();
 	?>
-	<div id="careers-root">
+
+	<div class="container">
+	  <div class="wrap">
+	    <div class="row">
+				<div id="careers-root">
+				</div>
+	    </div>
+	  </div>
 	</div>
+
 	<?php
 	$display_posts = ob_get_clean();
 	return $display_posts;

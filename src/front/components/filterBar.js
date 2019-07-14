@@ -1,5 +1,6 @@
-import React from 'react';
-import queryString from 'query-string';
+import React from 'react'
+import queryString from 'query-string'
+import {withStore} from '../store'
 
 // Get query params from url as object
 let parsed = queryString.parse(location.search);
@@ -15,49 +16,50 @@ export default class FilterBar extends React.Component {
       sortBy: parsed.sortBy,
       order: parsed.order
     }
-    this.inputChange = this.inputChange.bind(this);
-    this.companyChange = this.companyChange.bind(this);
-    this.sortByChange = this.sortByChange.bind(this);
-    this.orderChange = this.orderChange.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
-    this.resetForm = this.resetForm.bind(this);
+    this.inputChange = this.inputChange.bind(this)
+    this.companyChange = this.companyChange.bind(this)
+    this.sortByChange = this.sortByChange.bind(this)
+    this.orderChange = this.orderChange.bind(this)
+    this.handleSubmit = this.handleSubmit.bind(this)
+    this.resetForm = this.resetForm.bind(this)
   }
 
   inputChange(event) {
-    this.setState({keyword: event.target.value});
+    this.setState({keyword: event.target.value})
   }
 
   companyChange(event) {
-    this.setState({company: event.target.value});
+    this.setState({company: event.target.value})
   }
 
   sortByChange(event) {
-    this.setState({sortBy: event.target.value});
+    this.setState({sortBy: event.target.value})
   }
 
   orderChange(event) {
-    this.setState({order: event.target.value});
+    this.setState({order: event.target.value})
   }
 
   handleSubmit(event) {
     event.preventDefault();
     // Update query object with form entries
     parsed = {
+      search: true,
       keyword: this.state.keyword,
       company: this.state.company,
       order: this.state.order,
       sortBy: this.state.sortBy
     }
     console.log(this.state);
-    console.log('parsed', parsed);
+    console.log('parsed', parsed)
     // Stringify stored query params
-    let searchString = queryString.stringify(parsed);
+    let searchString = queryString.stringify(parsed)
     location.search = searchString;
+    document.getElementById('careers-root').scrollIntoView();
   }
 
   resetForm(){
-    console.log(location.origin);
-    location.href = location.origin + location.pathname;
+    location.href = location.origin + location.pathname
   }
 
   render() {
