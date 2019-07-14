@@ -34,14 +34,14 @@ function chugach_careers_root() {
 	ob_start();
 	?>
 
-	<div class="container">
+	<seaction class="container careers-section">
 	  <div class="wrap">
 	    <div class="row">
 				<div id="careers-root">
 				</div>
 	    </div>
 	  </div>
-	</div>
+	</section>
 
 	<?php
 	$display_posts = ob_get_clean();
