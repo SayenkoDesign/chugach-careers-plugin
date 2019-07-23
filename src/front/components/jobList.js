@@ -91,21 +91,23 @@ class JobList extends React.Component {
   render() {
     if(this.props.store.jobListings[this.props.store.currentPage] && this.props.store.search) {
       return(
-        <div className='row small-up-1 medium-up-4 align-center grid'>
+        <div className="results-wrapper">
           <span className="results-count">{this.props.store.totalJobs} {this.props.store.resultType}</span>
-          {this.props.store.jobListings[this.props.store.currentPage].map(
-            job => (
-              <div key={job.uuid} className='column'>
-                <a href={job.url} target="_blank">
-                  <h3>{job.title}</h3>
-                  <span className="company">{job.company}</span>
-                  <span className="location">{job.location}</span>
-                  <span className="date">{job.date}</span>
-                  <span className="closingDate">{job.closingDate}</span>
-                </a>
-              </div>
-            )
-          )}
+          <div className='row small-up-1 medium-up-4 align-center grid'>
+            {this.props.store.jobListings[this.props.store.currentPage].map(
+              job => (
+                <div key={job.uuid} className='column'>
+                  <a href={job.url} target="_blank">
+                    <h3>{job.title}</h3>
+                    <span className="company">{job.company}</span>
+                    <span className="location">{job.location}</span>
+                    <span className="date">{job.date}</span>
+                    <span className="closingDate">{job.closingDate}</span>
+                  </a>
+                </div>
+              )
+            )}
+          </div>
         </div>
       )
     } else {

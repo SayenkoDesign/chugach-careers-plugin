@@ -36,7 +36,7 @@ function chugach_careers_root() {
 
 	<section class="container careers-section">
 	  <div class="wrap">
-	    <div class="row">
+	    <div class="row column">
 				<div id="careers-root">
 				</div>
 	    </div>
