@@ -93,7 +93,7 @@ class JobList extends React.Component {
       return(
         <div className="results-wrapper">
           <span className="results-count">{this.props.store.totalJobs} {this.props.store.resultType}</span>
-          <div className='row small-up-1 medium-up-4 align-center grid'>
+          <div className='row small-1 medium-2 large-4 align-center grid'>
             {this.props.store.jobListings[this.props.store.currentPage].map(
               job => (
                 <div key={job.uuid} className='column'>
