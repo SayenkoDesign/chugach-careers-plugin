@@ -21,7 +21,7 @@ class Pagination extends React.Component {
   }
 
   jumpPage(event) {
-    event.preventDefault()
+    // event.preventDefault()
     this.props.store.set('currentPage', event.target.getAttribute('pagenumber'))
   }
 
@@ -32,7 +32,7 @@ class Pagination extends React.Component {
 
     if(jobPages > 0 && search) {
       for(let i = 1; jobPages >= i; i++){
-        pages.push(<a className="pageNumbers" key={i} pagenumber={i - 1} onClick={this.jumpPage}>{i}</a>)
+        pages.push(<li className="pageNumbers" key={i} pagenumber={i - 1} onClick={this.jumpPage}>{i}</li>)
       }
 
       if(currentPage > 0) {
@@ -48,7 +48,9 @@ class Pagination extends React.Component {
       return(
         <div className='jobsPagination'>
           {prevButton}
-          {pages}
+          <ul>
+            {pages}
+          </ul>
           {nextButton}
         </div>
       )
