@@ -55,7 +55,6 @@ export default class FilterBar extends React.Component {
     // Stringify stored query params
     let searchString = queryString.stringify(parsed)
     location.search = searchString;
-    document.getElementById('careers-root').scrollIntoView();
   }
 
   resetForm(){

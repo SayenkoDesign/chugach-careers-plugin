@@ -34,7 +34,7 @@ function chugach_careers_root() {
 	ob_start();
 	?>
 
-	<seaction class="container careers-section">
+	<section class="container careers-section">
 	  <div class="wrap">
 	    <div class="row">
 				<div id="careers-root">
