@@ -90,6 +90,12 @@ class JobList extends React.Component {
 
   }
 
+  componentDidUpdate(prevProps) {
+    if(prevProps.store.currentPage) {
+      window.reactMatchHeight('.careers-section .column h3');
+    }
+  }
+
   render() {
     if(this.props.store.jobListings[this.props.store.currentPage] && this.props.store.search) {
       return(

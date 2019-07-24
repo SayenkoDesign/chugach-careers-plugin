@@ -11,47 +11,47 @@ class Pagination extends React.Component {
   }
 
   nextPage(event) {
-    event.preventDefault()
-    this.props.store.set('currentPage', ++this.props.store.currentPage)
+    this.props.store.set('currentPage', ++this.props.store.currentPage);
   }
 
   prevPage(event) {
-    event.preventDefault()
-    this.props.store.set('currentPage', --this.props.store.currentPage)
+    this.props.store.set('currentPage', --this.props.store.currentPage);
   }
 
   jumpPage(event) {
-    // event.preventDefault()
-    this.props.store.set('currentPage', event.target.getAttribute('pagenumber'))
+    this.props.store.set('currentPage', event.target.getAttribute('pageindex'));
   }
 
   render() {
-    let {jobPages, search, currentPage} = this.props.store
+    let {jobPages, search, currentPage} = this.props.store;
     let pages = [];
     let prevButton, nextButton;
 
     if(jobPages > 0 && search) {
       for(let i = 1; jobPages >= i; i++){
-        pages.push(<li className="pageNumbers" key={i} pagenumber={i - 1} onClick={this.jumpPage}>{i}</li>)
+        let currentPageIndex = i - 1;
+        let pageClass = 'pageNumbers';
+        if(parseInt(currentPage) === parseInt(currentPageIndex)){
+          pageClass = 'pageNumbers active';
+        }
+        pages.push(<li className={pageClass} key={i} pageindex={currentPageIndex} onClick={this.jumpPage}>{i}</li>)
       }
 
       if(currentPage > 0) {
-        prevButton = <a className="prevPage" onClick={this.prevPage}>Prev</a>;
+        prevButton = <li className="prevPage" onClick={this.prevPage}>Prev</li>;
       }
 
       if(currentPage < jobPages - 1) {
-        console.log('job pages = ', jobPages);
-        console.log('current page = ', currentPage);
-        nextButton = <a className="nextPage" onClick={this.nextPage}>Next</a>;
+        nextButton = <li className="nextPage" onClick={this.nextPage}>Next</li>;
       }
 
       return(
         <div className='jobsPagination'>
-          {prevButton}
           <ul>
+            {prevButton}
             {pages}
+            {nextButton}
           </ul>
-          {nextButton}
         </div>
       )
     } else {
