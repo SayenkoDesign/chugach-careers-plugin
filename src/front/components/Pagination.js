@@ -19,7 +19,9 @@ class Pagination extends React.Component {
   }
 
   jumpPage(event) {
+    console.log('Last Page: ', this.props.store.currentPage);
     this.props.store.set('currentPage', event.target.getAttribute('pageindex'));
+    console.log('Last Page: ', this.props.store.currentPage);
   }
 
   render() {
@@ -34,7 +36,7 @@ class Pagination extends React.Component {
         if(parseInt(currentPage) === parseInt(currentPageIndex)){
           pageClass = 'pageNumbers active';
         }
-        pages.push(<li className={pageClass} key={i} pageindex={currentPageIndex} onClick={this.jumpPage}><span>{i}</span></li>)
+        pages.push(<li className={pageClass} key={i} pageindex={currentPageIndex} onClick={this.jumpPage}><span pageindex={currentPageIndex}>{i}</span></li>)
       }
 
       if(currentPage > 0) {
