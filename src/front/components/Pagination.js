@@ -34,15 +34,15 @@ class Pagination extends React.Component {
         if(parseInt(currentPage) === parseInt(currentPageIndex)){
           pageClass = 'pageNumbers active';
         }
-        pages.push(<li className={pageClass} key={i} pageindex={currentPageIndex} onClick={this.jumpPage}>{i}</li>)
+        pages.push(<li className={pageClass} key={i} pageindex={currentPageIndex} onClick={this.jumpPage}><span>{i}</span></li>)
       }
 
       if(currentPage > 0) {
-        prevButton = <li className="prevPage" onClick={this.prevPage}>Prev</li>;
+        prevButton = <li className="prevPage" onClick={this.prevPage}><span>Prev</span></li>;
       }
 
       if(currentPage < jobPages - 1) {
-        nextButton = <li className="nextPage" onClick={this.nextPage}>Next</li>;
+        nextButton = <li className="nextPage" onClick={this.nextPage}><span>Next</span></li>;
       }
 
       return(
