@@ -84,8 +84,10 @@ class JobList extends React.Component {
                        : `Results Found`;
 
         this.props.store.set('resultType', resultType)
-        console.log(resultType);
+
+        window.reactMatchHeight('.careers-section .column h3');
       });
+
   }
 
   render() {
