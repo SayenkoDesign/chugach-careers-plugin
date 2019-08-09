@@ -22,7 +22,7 @@ class JobList extends React.Component {
         let allJobListings = res.data;
         let friednlyName = '';
         let {search, company, keyword, sortBy, order, pageNumber} = queryString.parse(location.search);
-        console.log(allJobListings);
+        
         // Filter res by company
         if(company) {
           allJobListings = filter(allJobListings, {companyFilter: company});
@@ -120,7 +120,7 @@ class JobList extends React.Component {
       )
     } else if(parseInt(this.props.store.totalJobs) === 0){
       return(
-        <div class="noResults">
+        <div className="noResults">
         <h3>Sorry, not jobs matched your criteria</h3>
         </div>
       )
