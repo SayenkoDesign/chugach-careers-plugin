@@ -21,8 +21,8 @@ class JobList extends React.Component {
       .then(res => {
         let allJobListings = res.data;
         let friednlyName = '';
-        let {search, company, keyword, sortBy, order, pageNumber} = queryString.parse(location.search);
-        
+        let {search, company, keyword, sortBy, order, pageNumber, jobLocation} = queryString.parse(location.search);
+
         // Filter res by company
         if(company) {
           allJobListings = filter(allJobListings, {companyFilter: company});
@@ -48,6 +48,12 @@ class JobList extends React.Component {
           // Fuse results
           let fuse = new Fuse(allJobListings, options);
           allJobListings = fuse.search(keyword);
+        }
+
+        // Location results
+        if(jobLocation) {
+          console.log(jobLocation)
+          allJobListings = filter(allJobListings, {location: jobLocation});
         }
 
         //Order results
