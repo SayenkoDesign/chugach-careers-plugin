@@ -27,7 +27,7 @@
     "webpack-cli": "^3.3.11"
   },
   "dependencies": {
-    "axios": "^0.19.2",
+    "axios": "^0.21.1",
     "fuse.js": "^3.4.6",
     "query-string": "^5.1.1",
     "react": "^16.12.0",
